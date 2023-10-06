@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.openviowebsites.com/source/sites/69a1918b-7514-42eb-b4ae-1289ec674cc7/css/bootstrap.min.css?v=224020221240036646537">
+    <link rel="stylesheet" type="text/css" href="https://kit.fontawesome.com/00bf593261.css">
+    <script src="https://cdn.openviowebsites.com/source/sites/69a1918b-7514-42eb-b4ae-1289ec674cc7/js/bootstrap.min.js?v=222120220121090812311"></script>
+    <title>Input Popup with Bootstrap Modal</title>
+</head>
+<style>
+    @keyframes tik-tak {
+        0% {
+            transform: rotate(-15deg);
+        }
+
+        50% {
+            transform: rotate(15deg);
+        }
+
+        100% {
+            transform: rotate(-15deg);
+        }
+    }
+
+
+
+    #popupModal .modal-header {
+        border: none;
+        padding: 0;
+    }
+
+    #popupModal .btn-close {
+        font-size: 15px;
+        border: 0;
+        border-radius: 0;
+        opacity: 1;
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-image: none;
+        display: flex;
+        background-color: #000;
+        color: #fff;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        z-index: 99;
+        transition: all 0.3s ease-in-out;
+    }
+
+    #popupModal .btn-close:hover {
+        transform: rotate(180deg);
+    }
+
+
+
+
+    .alert-text h2 {
+        font-size: 20px;
+        line-height: 30px;
+        background: rgb(255, 255, 255);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 212, 255, 0) 100%);
+        color: #000;
+        padding: 2px 10px;
+        margin: 0 0 20px;
+        font-weight: 600;
+        border-left: 3px solid #842029;
+        position: relative;
+    }
+
+    .alert-text h2::after {
+        content: '';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 1%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 0.85) 71%, rgba(255, 255, 255, 0) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#00ffffff', GradientType=1);
+        width: 15%;
+        height: 100%;
+        transform: skew(-10deg, 0deg);
+        animation: move 2s;
+        animation-iteration-count: infinite;
+        animation-delay: 2s;
+    }
+
+    @keyframes move {
+        0% {
+            left: 0;
+            opacity: 0;
+        }
+
+        5% {
+            opacity: 0.0;
+        }
+
+        48% {
+            opacity: 0.4;
+        }
+
+        80% {
+            opacity: 0.0;
+        }
+
+        100% {
+            left: 82%;
+        }
+    }
+
+    @keyframes rotate-shake {
+        0% {
+            transform: rotateY(0deg);
+        }
+
+        50% {
+            transform: rotateY(20deg);
+        }
+
+        100% {
+            transform: rotateY(0deg);
+        }
+    }
+
+    .alert-text h3 {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 500;
+    }
+
+    .custom-alert {
+        border-radius: 10px;
+    }
+
+    .alert-text {
+        padding: 30px 30px 30px 20px;
+    }
+
+    .alert-text p {
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 27px;
+        margin: 0;
+    }
+
+    .horm-icon img {
+        animation: rotate-shake 2s;
+        animation-iteration-count: infinite;
+        animation-delay: 2s;
+    }
+</style>
+
+<body>
+    <input type="text" id="inputField">
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert-danger custom-alert">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <div class="horm-icon">
+                                    <img src="horn.svg" class="img-fluid tik-tak" alt="Horn">
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="alert-text">
+                                    <h2>Important Notice:</h2>
+                                    <h3> FOR YOUR PROTECTION AND TO AVOID A HIPAA VIOLATION, DO NOT USE THIS FORM TO CONVEY PERSONAL OR MEDICAL INFORMATION!!</h3>
+                                    <p> If you are an existing patient with a personal health concern, please
+                                        <a id="link" href="https://pxpportal.nextgen.com/familycarecenters-27124/portal/#/user/login" target="_blank" title="click here.">click here.</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputField = document.getElementById("inputField");
+        const popupModal = new bootstrap.Modal(document.getElementById("popupModal"));
+        let modalOpened = false;
+
+        inputField.addEventListener("click", () => {
+            if (!modalOpened) {
+                popupModal.show();
+                modalOpened = true;
+            }
+        });
+
+        // Close modal event listener
+        const closeBtn = document.querySelector(".btn-close");
+        closeBtn.addEventListener("click", () => {
+            popupModal.hide();
+            modalOpened = false;
+        });
+    </script>
+
+</body>
+
+</html>
